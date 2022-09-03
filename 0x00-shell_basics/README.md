@@ -1,1 +1,1 @@
-Task 1.Whats in there?
+Display the contents list of your current directory in long format
