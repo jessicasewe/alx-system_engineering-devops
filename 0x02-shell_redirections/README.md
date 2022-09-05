@@ -1,1 +1,2 @@
-My first shell redirection readme
+script that prints “Hello, World”
+
