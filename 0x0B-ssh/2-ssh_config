@@ -1,0 +1,8 @@
+#configire ssh client so that you can connect to a server withput typing a password.
+Host *
+    SendEnv LANG LC_*
+    HashKnownHosts yes
+    GSSAPIAuthentication yes
+    GSSAPIDelegateCredentialsa no
+    IdentifyFile ~/.ssh/school
+    PasswordAuthentication no
