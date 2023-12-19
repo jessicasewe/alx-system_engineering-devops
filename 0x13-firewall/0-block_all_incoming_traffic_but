@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Update the ufw rules to deny all incoming traffic by default
 sudo ufw default deny incoming
 
