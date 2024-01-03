@@ -1,13 +1,12 @@
 #!/usr/bin/python3
 
 """
-Pyhton script that, using a REST API, for a given given employee ID,
+Python script that, using a REST API, for a given employee ID,
 returns information about his/her TODO list progress.
 """
 
 from requests import get
 from sys import argv
-
 
 if __name__ == "__main__":
     response = get('https://jsonplaceholder.typicode.com/todos/')
@@ -18,19 +17,21 @@ if __name__ == "__main__":
     response2 = get('https://jsonplaceholder.typicode.com/users')
     data2 = response2.json()
 
+    employee = None  # Initialize employee variable
+
     for i in data2:
         if i.get('id') == int(argv[1]):
             employee = i.get('name')
 
     for i in data:
-        if i.get('userID') == int(argv[1]):
+        if i.get('userId') == int(argv[1]):
             total += 1
 
-            if i.get('completed') is TRUE:
+            if i.get('completed') == True:  # Correct the condition
                 completed += 1
                 tasks.append(i.get('title'))
 
     print("Employee {} is done with tasks({}/{}):".format(employee, completed, total))
 
     for i in tasks:
-        print("\t {}".format(i))
+        print("\t{}".format(i))
