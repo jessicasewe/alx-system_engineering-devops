@@ -1,35 +1,34 @@
 #!/usr/bin/python3
-
+""" Uses REST API to return information about an employee
+    Exports employee records to a csv file
 """
-Python script that exports data in the CSV format
-"""
-
-from requests import get
-from sys import argv
 import csv
+import requests
+import sys
+
 
 if __name__ == "__main__":
-    response = get('https://jsonplaceholder.typicode.com/todos/')
-    data = response.json()
+    if len(sys.argv) < 2:
+        print("Usage: python3 module_name.py ID")
+        sys.exit(1)
 
-    row = []
-    response2 = get('https://jsonplaceholder.typicode.com/users')
-    data2 = response2.json()
+    ID = int(sys.argv[1])
+    if not isinstance(ID, int):
+        print("ID must be an integer")
+        sys.exit(1)
 
-    for i in data2:
-        if i['id'] == int(argv[1]):
-            employee = i['username']
+    url = "https://jsonplaceholder.typicode.com/"
+    employee_data = requests.get(url + "users/{}".format(ID)).json()
+    todos = requests.get(url + "todos", params={"userId": ID}).json()
 
-    with open(argv[1] + '.csv', 'w', newline='') as file:
-        writ = csv.writer(file, quoting=csv.QUOTE_ALL)
+    userName = employee_data.get("username")
+    task_status = [task.get("completed") for task in todos]
+    task_title = [title.get("title") for title in todos]
 
-        for i in data:
+    rows = zip([ID] * len(task_title), [userName] * len(task_title),
+               task_status, task_title)
 
-            row = []
-            if i['userId'] == int(argv[1]):
-                row.append(i['userId'])
-                row.append(employee)
-                row.append(i['completed'])
-                row.append(i['title'])
-
-                writ.writerow(row)
+    filename = f"{ID}.csv"
+    with open(filename, mode="w", newline="") as file:
+        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
+        writer.writerows(rows)
