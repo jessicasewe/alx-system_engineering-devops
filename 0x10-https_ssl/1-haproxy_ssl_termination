@@ -54,5 +54,5 @@ frontend myalx-frontend
 
 backend myalx-backend
    balance roundrobin
-   server web-01 52.201.211.152:80 check
-   server web-02 35.174.184.32:80 check
+   server web-01 100.27.12.69:80 check
+   server web-02 54.236.54.181:80 check
