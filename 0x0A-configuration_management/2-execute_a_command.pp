@@ -1,6 +1,6 @@
 #kill process killmeow
 
 exec { 'pkill':
-  command  => 'pkill killmeow',
+  command  => 'pkill killmenow',
   provider => 'shell',
 }
